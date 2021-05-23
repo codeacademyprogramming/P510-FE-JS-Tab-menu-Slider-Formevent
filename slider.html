@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slider</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .slider {
+            width: 100%;
+            height: 550px;
+            position: relative;
+            margin-top: calc((100vh - 500px) / 2);
+            overflow: hidden;
+        }
+
+        .slide {
+            font-size: 50px;
+            line-height: 500px;
+            text-align: center;
+            position: absolute;
+            width: 100%;
+            background-color: gray;
+            border: 5px solid black;
+            transition: left 1s;
+        }
+
+        .slide:nth-child(1) {
+            left: 0;
+        }
+
+        .slide:nth-child(2) {
+            left: 100vw;
+        }
+
+        .slide:nth-child(3) {
+            left: 200vw;
+        }
+
+        .slide:nth-child(4) {
+            left: 300vw;
+        }
+
+        .slide:nth-child(5) {
+            left: 400vw;
+        }
+
+        #prev-slide,
+        #next-slide {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background-color: blue;
+            border: 2px solid black;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 50px;
+            color: white;
+            font-size: 25px;
+            transition: background-color 1s;
+        }
+
+        #prev-slide.disabled,
+        #next-slide.disabled {
+            background-color: gray;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slider">
+        <div class="slide"><span>1</span></div>
+        <div class="slide"><span>2</span></div>
+        <div class="slide"><span>3</span></div>
+        <div class="slide"><span>4</span></div>
+        <div class="slide"><span>5</span></div>
+    </div>
+    <div style="display: flex; justify-content: center; align-items: center;">
+        <div>
+            <span id="prev-slide">&#60;</span>
+            <span id="next-slide">&#62;</span>
+        </div>
+    </div>
+
+    <script>
+        let currentIndex = 0;
+        const prevSlideIcon = document.getElementById('prev-slide');
+        const nextSlideIcon = document.getElementById('next-slide');
+        const sliders = document.querySelectorAll('.slider .slide'); // 0 , 1 , 2 
+
+        function checker(ci) {
+            if (ci === 0) {
+                prevSlideIcon.classList.add('disabled');
+            } else {
+                prevSlideIcon.classList.remove('disabled');
+            }
+
+            if (ci === 4) {
+                nextSlideIcon.classList.add('disabled');
+            } else {
+                nextSlideIcon.classList.remove('disabled');
+            }
+        }
+
+        checker(currentIndex);
+
+        nextSlideIcon.onclick = function () {
+            if (currentIndex === 4) {
+                return;
+            }
+            sliders[currentIndex + 1].style.left = 0;
+            currentIndex++;
+            checker(currentIndex);
+        }
+
+        prevSlideIcon.onclick = function () {
+            if (currentIndex === 0) {
+                return;
+            }
+            sliders[currentIndex].style.left = '100vw'
+            sliders[currentIndex - 1].style.left = 0;
+            currentIndex--;
+            checker(currentIndex);
+        }
+    </script>
+
+</body>
+
+</html>

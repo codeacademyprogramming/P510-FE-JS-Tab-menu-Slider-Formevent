@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .d-none {
+            display: none;
+        }
+
+        .error-text {
+            color: red;
+        }
+    </style>
+    <title>Form</title>
+</head>
+
+<body>
+    <form>
+        <label for="firstname">Firstname</label>
+        <input id="firstname" type="text" placeholder="enter firstname" name="firstname">
+        <span class="error-text d-none"></span>
+        <br>
+        <label for="lastname">Lastname</label>
+        <input id="lastname" type="text" placeholder="enter lastname" name="lastname">
+        <span class="error-text d-none"></span>
+        <br>
+        <button type="submit">Submit this form</button>
+    </form>
+
+    <script>
+        const form = document.querySelector('form');
+
+        form.addEventListener('submit', (e) => {
+            const inputs = Array.from(form.querySelectorAll('input'));
+
+            inputs.forEach((input) => {
+                if (!input.value) {
+                    input.nextElementSibling.innerText = `${input.name} bosh ola bilmez`;
+                    input.nextElementSibling.classList.remove('d-none');
+                } else {
+                    if (input.value.length < 3) {
+                        input.nextElementSibling.innerText = `${input.name} 3 simvoldan az ola bilmez`;
+                        input.nextElementSibling.classList.remove('d-none');
+                    } else {
+                        input.nextElementSibling.innerText = '';
+                    }
+                }
+            });
+
+            const data = {};
+            inputs.forEach((input) => {
+                data[input.name] = input.value;
+            });
+            console.log(data);
+            e.preventDefault();
+        });
+
+    </script>
+</body>
+
+</html>

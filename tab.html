@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        ul {
+            display: flex;
+            width: min-content;
+            list-style-type: none;
+        }
+
+        .button {
+            padding: 10px 20px;
+            background-color: white;
+            color: black;
+            border: 1px solid black;
+        }
+
+        .button.active {
+            background-color: black;
+            color: white;
+        }
+
+        .contents-wrapper {
+            margin-left: 40px;
+            position: relative;
+        }
+
+        .contents-wrapper div {
+            position: absolute;
+            display: none;
+        }
+
+        .contents-wrapper div.active {
+            display: block;
+        }
+    </style>
+    <title>Tab menu example</title>
+</head>
+
+<body>
+    <div>
+        <ul>
+            <li>
+                <button data-target="#home" class="button active">Home</button>
+            </li>
+            <li>
+                <button data-target="#about" class="button">About</button>
+            </li>
+            <li>
+                <button data-target="#contact" class="button">Contact</button>
+            </li>
+            <li>
+                <button data-target="#profile" class="button">Profile</button>
+            </li>
+        </ul>
+    </div>
+    <div class="contents-wrapper">
+        <div id="home" class="active">
+            Home
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perferendis exercitationem porro culpa natusvel
+            dolorem quis non ipsa rerum expedita ratione necessitatibus facere dolorum modi aspernatur mollitia, quasi
+            at quam.
+        </div>
+        <div id="about">
+            About
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officiis aperiam facilis perferendis eaque aliquam
+            minima temporibus minus commodi impedit reiciendis voluptate nisi aut repellat odio modi, alias ullam
+            molestias numquam.
+        </div>
+        <div id="contact">
+            Contact
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officiis aperiam facilis perferendis eaque aliquam
+            minima temporibus minus commodi impedit reiciendis voluptate nisi aut repellat odio modi, alias ullam
+            molestias numquam.
+        </div>
+        <div id="profile">
+            Profile
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officiis aperiam facilis perferendis eaque aliquam
+            minima temporibus minus commodi impedit reiciendis voluptate nisi aut repellat odio modi, alias ullam
+            molestias numquam.
+        </div>
+    </div>
+
+    <script>
+        const buttons = Array.from(document.querySelectorAll('.button'));
+        const contents = Array.from(document.querySelectorAll('.contents-wrapper div'));
+        buttons.forEach(button => {
+            button.onclick = function () {
+                buttons.forEach(otherButton => {
+                    otherButton.classList.remove('active');
+                });
+                contents.forEach(content => {
+                    content.classList.remove('active');
+                });
+
+                const target = button.getAttribute('data-target');
+                const targetContent = document.querySelector(target);
+
+                button.classList.add('active');
+                targetContent.classList.add('active');
+            }
+        });
+    </script>
+</body>
+
+</html>
